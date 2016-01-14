@@ -89,6 +89,25 @@ function main() {
     // TODO: wait until after the map load event, not for some arbitrary timeframe
     $.Schedule(10,embiggenTextbox);
 
+    //Keybind experiment
+    /*
+        Second argument is a comma seperated array of key strings.
+        Can be keys from key_0 to key_9, key_a to key_z.
+        key_f1 to f_f12 and various other keys.
+    */
+    $.RegisterKeyBind($.GetContextPanel(), "key_f9", function() {
+        FindChildFromRoot([0,0,0,0]).BCreateChildren("<DOTAScenePanel id='BackgroundMap' map='maps/terrain_previews/dota_desert_preview.vmap' camera='default_camera' />");
+    });
+    $.RegisterKeyBind($.GetContextPanel(), "key_f10,key_pad_divide", function() {
+        FindChildFromRoot([0,0,0,0]).BCreateChildren("<DOTAScenePanel id='BackgroundMap' map='maps/terrain_previews/dota_default_preview.vmap' camera='default_camera' />");
+    });
+    $.RegisterKeyBind($.GetContextPanel(), "key_f11", function() {
+        FindChildFromRoot([0,0,0,0]).BCreateChildren("<DOTAScenePanel id='BackgroundMap' map='backgrounds/dashboard_parallax_test' camera='shot_cameraA' />");
+    });
+    $.RegisterKeyBind($.GetContextPanel(), "key_up,key_down,key_left,key_right", function(test,test2,test3) {
+       $.Msg(test," | ",test2," | ",test3);
+    });
+    
     // Testing stuff
     $.Msg("=====================================");
     $.Msg("This is a giant dump in base");
