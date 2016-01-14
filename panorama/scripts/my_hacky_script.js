@@ -1,3 +1,5 @@
+// Utility functions
+
 function FindChildByPath(root, path) {
     var elem = root;
     $.Msg("=========");
@@ -11,13 +13,10 @@ function FindChildByPath(root, path) {
     return elem;
 }
 
-$.Msg("This is a print from inside hacky script 5");
-var arcadeButton = FindChildByPath($.GetContextPanel(), [0,0,2,10,1,1,1,5]);
-$.Msg(arcadeButton.GetAttributeString("onactivate", "EMPTY"));
-//arcadeButton.checked = true; 
-//$.DispatchEvent("DOTAWatchTournamentDetailsCompendium");
-$.DispatchEvent("DOTAShowPrimaryTabPage", "TopBarMods");
-$.Msg(	Game.Time());
+function FindChildFromRoot(path) {
+    var elem = $.GetContextPanel();
+    return FindChildByPath(elem,path);
+}
 
 function repeat(pattern, count) {
     if (count < 1) return '';
@@ -28,6 +27,7 @@ function repeat(pattern, count) {
     }
     return result + pattern;
 }
+
 function innerDump(indent, object) {
     for (var v in object) {
         if(typeof object[v] == "object") {
@@ -44,6 +44,7 @@ function innerDump(indent, object) {
         }
     }
 }
+
 function dump(indent, object) {
     var len = object.GetChildCount();
     for (var i=0; i < len; i++) {
@@ -62,33 +63,50 @@ function dump(indent, object) {
 
 
 
-$.Msg("=====================================");
-$.Msg("[");
-
-//var controlZooButton = $.GetContextPanel().GetChild(0).GetChild(0).GetChild(2).GetChild(10).GetChild(1).GetChild(1).GetChild(2).GetChild(1).GetChild(1);
-var controlZooButton = FindChildByPath($.GetContextPanel(), [0,0,2,10,1,1,2,1,1]);
-//controlZooButton = $("#ZooButton");
-$.Msg("Hai" + $.GetContextPanel().GetParent());
-innerDump(0, arcadeButton.data());
-controlZooButton.visible = true;
-controlZooButton.checked = false;
-$.Msg("]");
-
-
-$.Msg("=====================================");
-$.Msg("This is a giant dump in base");
-$.Msg("=====================================");
-for (v in controlZooButton) {
-    if(typeof controlZooButton[v] == "object") {
-        $.Msg(v + " = {");
-        for (w in controlZooButton[v]) {
-            $.Msg("\t"+v+"." + w + " = " + (""+controlZooButton[v][w]));
-        }
-        $.Msg("}");
-    } else {
-        $.Msg("controlZooButton." + v + " = (" + typeof controlZooButton[v] + ") " + controlZooButton[v]);
-    }
+function embiggenTextbox() {
+    var zetReleaseAd = FindChildFromRoot([0,0,2,0,0,1,1,0,0,0,0,0]);
+    zetReleaseAd.style.height = "232px";
+    var zuusArcanaAd = FindChildFromRoot([0,0,2,0,0,1,1,0,1,0,0,0]);
+    zuusArcanaAd.style.height = "232px";
+    var chatbox = FindChildFromRoot([0,3,1,0,2,0,0]);
+    chatbox.style.height = "480px";
 }
-$.Msg("=====================================");
-$.Msg("This is a GetContextPanel dump");
-$.Msg("End of Script!")
+
+function main() {
+    $.Msg("=====================================");
+    $.Msg("| Loading ModDota Hackery...        |");
+    $.Msg("-------------------------------------");
+
+    // Make the control zoo button appear
+    $.Msg("| Showing Zoo...                    |");
+    var controlZooButton = FindChildFromRoot([0,0,2,10,1,1,2,1,1]);
+    controlZooButton.visible = true;
+    controlZooButton.checked = false;
+    
+    // Make the chat box bigger
+    $.Msg("| Embiggening Chat...               |");
+    // we need to delay this, because a lot of the elements aren't added until after the background map loads
+    // TODO: wait until after the map load event, not for some arbitrary timeframe
+    $.Schedule(10,embiggenTextbox);
+
+    // Testing stuff
+    $.Msg("=====================================");
+    $.Msg("This is a giant dump in base");
+    $.Msg("=====================================");
+    for (v in controlZooButton) {
+        if(typeof controlZooButton[v] == "object") {
+            $.Msg(v + " = {");
+            for (w in controlZooButton[v]) {
+                $.Msg("\t"+v+"." + w + " = " + (""+controlZooButton[v][w]));
+            }
+            $.Msg("}");
+        } else {
+            $.Msg("controlZooButton." + v + " = (" + typeof controlZooButton[v] + ") " + controlZooButton[v]);
+        }
+    }
+    $.Msg("=====================================");
+    $.Msg("This is a GetContextPanel dump");
+    $.Msg("End of Script!")
+}
+
+main();
