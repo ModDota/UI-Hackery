@@ -1,7 +1,6 @@
 // Utility functions
 
 function FindChildByPath(root, path, print) {
-    $.Msg("B" + print);
     var elem = root;
     if (print) {
         $.Msg("=========");
@@ -21,7 +20,6 @@ function FindChildByPath(root, path, print) {
 }
 
 function FindChildFromRoot(path, print) {
-    $.Msg("A" + print);
     var elem = $.GetContextPanel();
     return FindChildByPath(elem,path, print);
 }
@@ -69,6 +67,23 @@ function dump(indent, object) {
     }
 }
 
+function altDump(name, object) {
+    $.Msg("=====================================");
+    $.Msg("This is a giant dump in " + name);
+    $.Msg("=====================================");
+    for (var v in object) {
+        if(typeof object[v] == "object") {
+            $.Msg(v + " = {");
+            for (w in object[v]) {
+                $.Msg("\t"+v+"." + w + " = " + (""+object[v][w]));
+            }
+            $.Msg("}");
+        } else {
+            $.Msg(name+"." + v + " = (" + typeof object[v] + ") " + object[v]);
+        }
+    }
+    $.Msg("=====================================");
+}
 
 
 function embiggenTextbox() {
@@ -101,7 +116,7 @@ function main() {
     /*
         Second argument is a comma seperated array of key strings.
         Can be keys from key_0 to key_9, key_a to key_z.
-        key_f1 to f_f12 and various other keys.
+        key_f1 to key_f12 and various other keys.
     */
     $.RegisterKeyBind($.GetContextPanel(), "key_f9", function() {
         FindChildFromRoot([0,0,0,0]).BCreateChildren("<DOTAScenePanel id='BackgroundMap' map='maps/terrain_previews/dota_desert_preview.vmap' camera='default_camera' />");
@@ -116,24 +131,7 @@ function main() {
        $.Msg(test," | ",test2," | ",test3);
     });
     
-    // Testing stuff
-    $.Msg("=====================================");
-    $.Msg("This is a giant dump in base");
-    $.Msg("=====================================");
-    for (v in controlZooButton) {
-        if(typeof controlZooButton[v] == "object") {
-            $.Msg(v + " = {");
-            for (w in controlZooButton[v]) {
-                $.Msg("\t"+v+"." + w + " = " + (""+controlZooButton[v][w]));
-            }
-            $.Msg("}");
-        } else {
-            $.Msg("controlZooButton." + v + " = (" + typeof controlZooButton[v] + ") " + controlZooButton[v]);
-        }
-    }
-    $.Msg("=====================================");
-    $.Msg("This is a GetContextPanel dump");
-    $.Msg("End of Script!")
+    altDump("controlZooButton", controlZooButton); 
 }
 
 main();
