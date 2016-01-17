@@ -45,7 +45,6 @@ function innerDump(indent, object) {
         } else if(typeof object[v] == "function") {
             //Suckers!
         } else {
-            //$.Msg("$.GetContextPanel()." + v + " = (" + typeof $.GetContextPanel()[v] + ") " + $.GetContextPanel()[v]);
             $.Msg(repeat("\t", indent) + "\""+v+"\" : \""+object[v]+"\",");
         }
     }
@@ -94,7 +93,7 @@ function embiggenTextbox() {
         return;
     }
     FindChildByPath(zetReleaseAd, [0,0]).style.height = "232px";
-    $.Msg("| Zeus Release ad                   |");//asd
+    $.Msg("| Zeus Release ad                   |");
     var zuusArcanaAd = FindChildFromRoot([0,0,2,0,0,1,1,0,1,0]);
         if (zuusArcanaAd.id != "Carousel1") {
         $.Schedule(1, embiggenTextbox);
@@ -113,11 +112,9 @@ function embiggenTextbox() {
 var currentTab = "DOTAHomePage";
 function topbarListener() {
     var prevTab = currentTab;
-    //$.Msg("TopBarListener GO!");
     var pageList = FindChildFromRoot([0,0,2,0]);
     for (var i = 0; i < pageList.GetChildCount(); i++) {
         var tab = pageList.GetChild(i);
-        //$.Msg(tab.id + " | " + (tab.BHasClass("PageVisible") ? "Selected" : "Not Selected"));
         if (tab.BHasClass("PageVisible")) {
             currentTab = tab.id;
             break;
@@ -127,7 +124,7 @@ function topbarListener() {
         if (prevTab == "DOTAHomePage" || currentTab == "DOTAHomePage")
         embiggenTextbox();
     }
-    //$.Schedule(1, topbarListener);
+    $.Schedule(1, topbarListener);
 }
 
 function main() {
