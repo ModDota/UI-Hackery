@@ -1,21 +1,29 @@
 // Utility functions
 
-function FindChildByPath(root, path) {
+function FindChildByPath(root, path, print) {
+    $.Msg("B" + print);
     var elem = root;
-    $.Msg("=========");
+    if (print) {
+        $.Msg("=========");
+    }
     while (path.length > 0) {
         var index = path[0];
         elem = elem.GetChild(index);
-        $.Msg(elem.id + " " + index);
+        if (print) {
+            $.Msg(elem.id + " " + index);
+        }
         path = path.splice(1,path.length-1);
     }
-    $.Msg("=========");
+    if (print) {
+        $.Msg("=========");
+    }
     return elem;
 }
 
-function FindChildFromRoot(path) {
+function FindChildFromRoot(path, print) {
+    $.Msg("A" + print);
     var elem = $.GetContextPanel();
-    return FindChildByPath(elem,path);
+    return FindChildByPath(elem,path, print);
 }
 
 function repeat(pattern, count) {
