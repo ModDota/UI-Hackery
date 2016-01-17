@@ -87,12 +87,47 @@ function altDump(name, object) {
 
 
 function embiggenTextbox() {
-    var zetReleaseAd = FindChildFromRoot([0,0,2,0,0,1,1,0,0,0,0,0]);
-    zetReleaseAd.style.height = "232px";
-    var zuusArcanaAd = FindChildFromRoot([0,0,2,0,0,1,1,0,1,0,0,0]);
-    zuusArcanaAd.style.height = "232px";
+    $.Msg("| Zet Release ad                    |");
+    var zetReleaseAd = FindChildFromRoot([0,0,2,0,0,1,1,0,0,0]);
+    if (zetReleaseAd.id != "Carousel0") {
+        $.Schedule(1, embiggenTextbox);
+        return;
+    }
+    FindChildByPath(zetReleaseAd, [0,0]).style.height = "232px";
+    $.Msg("| Zeus Release ad                   |");//asd
+    var zuusArcanaAd = FindChildFromRoot([0,0,2,0,0,1,1,0,1,0]);
+        if (zuusArcanaAd.id != "Carousel1") {
+        $.Schedule(1, embiggenTextbox);
+        return;
+    }
+    FindChildByPath(zuusArcanaAd, [0,0]).style.height = "232px";
     var chatbox = FindChildFromRoot([0,3,1,0,2,0,0]);
     chatbox.style.height = "480px";
+    
+    if (currentTab != "DOTAHomePage") {
+        FindChildByPath(zetReleaseAd, [0,0]).style.height = null;
+        FindChildByPath(zuusArcanaAd, [0,0]).style.height = null;
+        chatbox.style.height = null;
+    } 
+}
+var currentTab = "DOTAHomePage";
+function topbarListener() {
+    var prevTab = currentTab;
+    //$.Msg("TopBarListener GO!");
+    var pageList = FindChildFromRoot([0,0,2,0]);
+    for (var i = 0; i < pageList.GetChildCount(); i++) {
+        var tab = pageList.GetChild(i);
+        //$.Msg(tab.id + " | " + (tab.BHasClass("PageVisible") ? "Selected" : "Not Selected"));
+        if (tab.BHasClass("PageVisible")) {
+            currentTab = tab.id;
+            break;
+        }
+    }
+    if (currentTab != prevTab) {
+        if (prevTab == "DOTAHomePage" || currentTab == "DOTAHomePage")
+        embiggenTextbox();
+    }
+    //$.Schedule(1, topbarListener);
 }
 
 function main() {
@@ -110,7 +145,7 @@ function main() {
     $.Msg("| Embiggening Chat...               |");
     // we need to delay this, because a lot of the elements aren't added until after the background map loads
     // TODO: wait until after the map load event, not for some arbitrary timeframe
-    $.Schedule(10,embiggenTextbox);
+    $.Schedule(1,embiggenTextbox);
 
     //Keybind experiment
     /*
@@ -132,6 +167,9 @@ function main() {
     });
     
     altDump("controlZooButton", controlZooButton); 
+    
+    $.Msg("| Registering Topbar Listener       |");
+    $.Schedule(1, topbarListener);
 }
 
 main();
