@@ -84,65 +84,29 @@ function altDump(name, object) {
     $.Msg("=====================================");
 }
 
+$.RegisterKeyBind($.GetContextPanel(), "key_f1", function() {
+   $.Msg("F1 pressed");
+   $.DispatchEvent("DOTAShowItemDefPage", 11094);
+});
 
-function embiggenTextbox() {
-    $.Msg("| Zet Release ad                    |");
-    var zetReleaseAd = FindChildFromRoot([0,0,2,0,0,1,1,0,0,0]);
-    if (zetReleaseAd.id != "Carousel0") {
-        $.Schedule(1, embiggenTextbox);
-        return;
-    }
-    FindChildByPath(zetReleaseAd, [0,0]).style.height = "232px";
-    $.Msg("| Zeus Release ad                   |");
-    var zuusArcanaAd = FindChildFromRoot([0,0,2,0,0,1,1,0,1,0]);
-        if (zuusArcanaAd.id != "Carousel1") {
-        $.Schedule(1, embiggenTextbox);
-        return;
-    }
-    FindChildByPath(zuusArcanaAd, [0,0]).style.height = "232px";
-    var chatbox = FindChildFromRoot([0,3,1,0,2,0,0]);
-    chatbox.style.height = "480px";
-    
-    if (currentTab != "DOTAHomePage") {
-        FindChildByPath(zetReleaseAd, [0,0]).style.height = null;
-        FindChildByPath(zuusArcanaAd, [0,0]).style.height = null;
-        chatbox.style.height = null;
-    } 
-}
-var currentTab = "DOTAHomePage";
-function topbarListener() {
-    var prevTab = currentTab;
-    var pageList = FindChildFromRoot([0,0,2,0]);
-    for (var i = 0; i < pageList.GetChildCount(); i++) {
-        var tab = pageList.GetChild(i);
-        if (tab.BHasClass("PageVisible")) {
-            currentTab = tab.id;
-            break;
-        }
-    }
-    if (currentTab != prevTab) {
-        if (prevTab == "DOTAHomePage" || currentTab == "DOTAHomePage")
-        embiggenTextbox();
-    }
-    $.Schedule(1, topbarListener);
+function openCompendium(test1,test2,test3,test4,test5) {
+    $.Msg("COMPENDIUM!");
+    $.DispatchEvent("DOTAShowCompendiumLeaguePage", parseInt(test2), parseInt(test3), test4);
+    $.Msg("OpenCompendium");
 }
 
 function main() {
     $.Msg("=====================================");
     $.Msg("| Loading ModDota Hackery...        |");
     $.Msg("-------------------------------------");
+    Game.AddCommand("sinz_compendium", openCompendium, "Testing 123", 0);
+
 
     // Make the control zoo button appear
     $.Msg("| Showing Zoo...                    |");
-    var controlZooButton = FindChildFromRoot([0,0,2,10,1,1,2,1,1]);
+    var controlZooButton = FindChildFromRoot([0,0,3,10,1,1,2,1,1]);
     controlZooButton.visible = true;
     controlZooButton.checked = false;
-    
-    // Make the chat box bigger
-    $.Msg("| Embiggening Chat...               |");
-    // we need to delay this, because a lot of the elements aren't added until after the background map loads
-    // TODO: wait until after the map load event, not for some arbitrary timeframe
-    $.Schedule(1,embiggenTextbox);
 
     //Keybind experiment
     /*
@@ -163,10 +127,7 @@ function main() {
        $.Msg(test," | ",test2," | ",test3);
     });
     
-    altDump("controlZooButton", controlZooButton); 
-    
-    $.Msg("| Registering Topbar Listener       |");
-    $.Schedule(1, topbarListener);
+    altDump("controlZooButton", controlZooButton);    
 }
 
 main();
