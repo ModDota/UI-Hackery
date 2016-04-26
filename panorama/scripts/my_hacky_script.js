@@ -104,9 +104,12 @@ function main() {
 
     // Make the control zoo button appear
     $.Msg("| Showing Zoo...                    |");
-    var controlZooButton = FindChildFromRoot([0,0,3,10,1,1,2,1,1]);
+    var controlZooButton = FindChildFromRoot([0,0,3,12,1,1,2,1,1]); //a
     controlZooButton.visible = true;
     controlZooButton.checked = false;
+    
+    var badge = FindChildFromRoot([0,0,3,0,0,1,0,0,1,1,1]);
+    badge.BCreateChildren("<Image id='BackgroundImage' tabindex='auto' src='file://{images}/profile_badges/bg_01.psd' defaultsrc='' />");
 
     //Keybind experiment
     /*
