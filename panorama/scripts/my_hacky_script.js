@@ -7,7 +7,7 @@ function FindChildByPath(root, path, print) {
     }
     while (path.length > 0) {
         var index = path[0];
-        elem = elem.GetChild(index);
+        elem = elem.FindChildTraverse(index);
         if (print) {
             $.Msg(elem.id + " " + index);
         }
@@ -104,7 +104,7 @@ function main() {
 
     // Make the control zoo button appear
     $.Msg("| Showing Zoo...                    |");
-    var controlZooButton = FindChildFromRoot([0,0,3,12,1,1,2,1,1]); //a
+    var controlZooButton = FindChildFromRoot(["Dashboard", "DashboardCore", "DashboardForeground", "TopBar", "TopBarContent", "TopBarMainContent", "TopBarRightButtons", "DevButtons", "ZooButton"], true);
     controlZooButton.visible = true;
     controlZooButton.checked = false;
     
