@@ -118,13 +118,13 @@ function main() {
         key_f1 to key_f12 and various other keys.
     */
     $.RegisterKeyBind($.GetContextPanel(), "key_f9", function() {
-        FindChildFromRoot([0,0,0,0]).BCreateChildren("<DOTAScenePanel id='BackgroundMap' map='maps/terrain_previews/dota_desert_preview.vmap' camera='default_camera' />");
+        FindChildFromRoot(["Dashboard","DashboardCore","DashboardBackground"]).BCreateChildren("<DOTAScenePanel id='BackgroundMap' map='maps/terrain_previews/dota_desert_preview.vmap' camera='default_camera' />");
     });
     $.RegisterKeyBind($.GetContextPanel(), "key_f10,key_pad_divide", function() {
-        FindChildFromRoot([0,0,0,0]).BCreateChildren("<DOTAScenePanel id='BackgroundMap' map='maps/terrain_previews/dota_default_preview.vmap' camera='default_camera' />");
+        FindChildFromRoot(["Dashboard","DashboardCore","DashboardBackground"]).BCreateChildren("<DOTAScenePanel id='BackgroundMap' map='maps/terrain_previews/dota_default_preview.vmap' camera='default_camera' />");
     });
     $.RegisterKeyBind($.GetContextPanel(), "key_f11", function() {
-        FindChildFromRoot([0,0,0,0]).BCreateChildren("<DOTAScenePanel id='BackgroundMap' map='backgrounds/dashboard_parallax_test' camera='shot_cameraA' />");
+        FindChildFromRoot(["Dashboard","DashboardCore","DashboardBackground"]).BCreateChildren("<DOTAScenePanel id='BackgroundMap' map='backgrounds/dashboard_parallax_test' camera='shot_cameraA' />");
     });
     $.RegisterKeyBind($.GetContextPanel(), "key_up,key_down,key_left,key_right", function(test,test2,test3) {
        $.Msg(test," | ",test2," | ",test3);
