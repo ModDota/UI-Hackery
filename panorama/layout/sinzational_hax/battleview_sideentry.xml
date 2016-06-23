@@ -1,0 +1,23 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+        <include src="file://panorama/styles/sinzational_hax/battleview_sidentry.css" />
+	</styles>
+    <scripts>
+        <include src="file://panorama/scripts/battleview_sideentry.js" />
+    </scripts>
+	<Panel class="sideentry" hittest="true">
+        <Label id="name" text="MATUMBAMAN" />
+        <Image id="hero" heroimagestyle="landscape" scaling="stretch-to-fit-preserve-aspect"/>
+        <Panel id="bars">
+            <Panel id="health">
+                <Panel id="healthbar" />
+            </Panel>
+            <Panel id="mana">
+                <Panel id="manabar" />
+            </Panel>
+        </Panel>
+        <Panel id="items"/>
+        <Panel id="abilities" />
+	</Panel>
+</root>

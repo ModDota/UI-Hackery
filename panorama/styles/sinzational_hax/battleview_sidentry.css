@@ -1,0 +1,59 @@
+.sideentry {
+    width: 400px;
+    height: 150px;
+}
+
+#name {
+    color: #ffffff;
+    font-size: 20px;
+    width: 400px;
+    height: 27px;
+    text-shadow: 0px 0px 2px 2.0 #000000;
+}
+Panel.rightAlign #name {
+    text-align: right;
+}
+#hero {
+    y: 27px;
+}
+Panel.rightAlign #hero {
+    x: 272px;
+}
+#bars {
+    height: 72px;
+    width: 272px;
+    x: 128px;
+    y: 27px;
+    flow-children: down;
+}
+Panel.rightAlign #bars {
+    x: 0px;
+}
+#health {
+    height: 36px;
+    width: 300px;
+    background-color: #00000044;
+}
+#healthbar {
+    background-color: gradient( linear, 0% 50%, 100% 50%, from( #220000 ), to( #FF0000 ) );
+    height: 100%;
+    width: 75%;
+}
+Panel.rightAlign #healthbar {
+    background-color: gradient( linear, 100% 50%, 0% 50%, from( #220000 ), to( #FF0000 ) );
+    x: 25%;
+}
+#mana {
+    height: 36px;
+    width: 300px;
+    background-color: #00000044;
+}
+#manabar {
+    background-color: gradient( linear, 0% 50%, 100% 50%, from( #000022 ), to( #0000FF ) );
+    height: 100%;
+    width: 25%;
+}
+Panel.rightAlign #manabar {
+    background-color: gradient( linear, 100% 50%, 0% 50%, from( #000022 ), to( #0000FF ) );
+    x: 75%;
+}
