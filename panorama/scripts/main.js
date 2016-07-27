@@ -90,13 +90,24 @@ $.RegisterKeyBind($.GetContextPanel(), "key_f1", function() {
 });
 
 function openCompendium(args) {
-    $.Msg("COMPENDIUM!");
-    $.DispatchEvent("DOTAShowCompendiumLeaguePage", parseInt(args[1]), parseInt(args[2]), args[3]);
-    $.Msg("OpenCompendium");
+    var pages = FindChildFromRoot(["Dashboard", "DashboardCore", "DashboardForeground", "DashboardPages"]);
+    pages.FindChildTraverse("DOTAHomePage").RemoveClass("PageVisible");
+    var test = $.CreatePanel( "Panel", pages, "SinZationalHax" );
+    test.LoadLayoutAsync("s2r://panorama/layout/dashboard_page_test.vxml_c", false, false);
+    test.AddClass("PageVisible");
+    /*var zoo4 = FindChildFromRoot(["Dashboard", "DashboardCore", "DashboardForeground", "DashboardPages", "DOTAControlsLibrary", "ZooTabContents", "ZooDebug4"], true);
+    zoo4.RemoveAndDeleteChildren();
+    zoo4.BCreateChildren("<WeekendTourneyStatusPanel id='test' style='width:500px;height:500px;'    />");
+    FindChildByPath(zoo4, ["test", "NotInTourney"]).BCreateChildren("<Button class='BlueButton' onactivate='DOTAPlayPanelCloseButtonClicked(true); DOTAShowWeekendTourneyPage();'><Label text='Learn More' /> </Button>");
+    var zoo5 = FindChildFromRoot(["Dashboard", "DashboardCore", "DashboardForeground", "DashboardPages", "DOTAControlsLibrary", "ZooTabContents", "ZooDebug5"], true);
+    zoo5.RemoveAndDeleteChildren();
+    zoo5.BCreateChildren("<DOTAWeekendTourneySetup id='test' class='LocalPlayerIsPartyLeader TeamIdentityTypePickup'    />");
+    FindChildByPath(zoo5, ["test", "PageBodyContainer"]).AddClass("StateSetup");*/
 }
 
 function main() {
     Game.sinz_compendium = openCompendium;
+    
     $.Msg("=====================================");
     $.Msg("| Loading ModDota Hackery...        |");
     $.Msg("-------------------------------------");
@@ -108,10 +119,15 @@ function main() {
     var controlZooButton = FindChildFromRoot(["Dashboard", "DashboardCore", "DashboardForeground", "TopBar", "TopBarContent", "TopBarMainContent", "TopBarRightButtons", "DevButtons", "ZooButton"]);
     controlZooButton.visible = true;
     controlZooButton.checked = false;
+    altDump("controlZooButton", controlZooButton);///
     
-        
-    var zoo4 = FindChildFromRoot(["Dashboard", "DashboardCore", "DashboardForeground", "DashboardPages", "DOTAControlsLibrary", "ZooTabContents", "ZooDebug4"], true);
     
+    //$.DispatchEvent("DOTAShowWeekendTourneyPage");///
+    //var pages = FindChildFromRoot(["Dashboard", "DashboardCore", "DashboardForeground", "DashboardPages"]);
+    //pages.FindChildTraverse("DOTAHomePage").RemoveClass("PageVisible");
+    //pages.BCreateChildren("<DOTAWeekendTourneyPage id='Testing2' class='DashboardPage PageVisible Loaded' style='visibility : visible;'/>");
+    //var loading = FindChildByPath(pages, ["Testing2", "ContainerLoaded", "Bracket"]);
+    //loading.AddClass("TournamentTypeAutomatedWin3");
     //Keybind experiment
     /*
         Second argument is a comma seperated array of key strings.
@@ -134,8 +150,6 @@ function main() {
        $.Msg(test," | ",test2," | ",test3);
     });
     /*
-    
-    //altDump("controlZooButton", controlZooButton);
     
     var gamemodeDropdown = FindChildFromRoot([0,4,2,0,0,0,2,1,1], true); 
     gamemodeDropdown.RemoveAndDeleteChildren();
